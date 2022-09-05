@@ -10,4 +10,12 @@ public class Route {
         this.hours = hours;
         this.busSerial = busSerial;
     }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public UUID getBusSerial() {
+        return busSerial;
+    }
 }

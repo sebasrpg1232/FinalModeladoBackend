@@ -1,5 +1,6 @@
 package com.example.demo.domain.driver;
 
+import com.example.demo.validation.DriverValidations;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import static java.time.LocalDate.parse;
 
 public class driver {
     private final String name;
-    private final LocalDateTime birthdate;
+    private final LocalDate birthdate;
     private final int age;
     private final String email;
     private final int number;
@@ -20,7 +21,7 @@ public class driver {
         return name;
     }
 
-    public LocalDateTime getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
@@ -40,12 +41,13 @@ public class driver {
         return driversRoute;
     }
 
-    public driver(String name, LocalDateTime birthdate, int age, String email, int number, Route driversRoute) {
+    public driver(String name, String birthdate, String age, String email, String number, Route driversRoute) {
+        DriverValidations.ValidateDriver(name, birthdate, age, email, number, driversRoute);
         this.name = name;
-        this.birthdate = birthdate;
-        this.age = age;
+        this.birthdate = parse(birthdate);
+        this.age = Integer.parseInt(age);
         this.email = email;
-        this.number = number;
+        this.number = Integer.parseInt(number);
         this.driversRoute = driversRoute;
     }
 

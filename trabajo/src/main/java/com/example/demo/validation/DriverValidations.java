@@ -2,10 +2,13 @@ package com.example.demo.validation;
 
 import com.example.demo.domain.driver.Route;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import static java.time.LocalDate.parse;
 
 public class DriverValidations {
     public static void ValidateDriver(
@@ -16,12 +19,12 @@ public class DriverValidations {
             String unSafeNumber,
             Route unSafeDriversRoute
     ){
-        Objects.requireNonNull(unSafeAge, "La edad no debe ser null");
-        Objects.requireNonNull(unSafeName, "La edad no debe ser null");
-        Objects.requireNonNull(unSafeBirthdate, "La edad no debe ser null");
-        Objects.requireNonNull(unSafeEmail, "La edad no debe ser null");
-        Objects.requireNonNull(unSafeNumber, "La edad no debe ser null");
-        Objects.requireNonNull(unSafeDriversRoute, "La edad no debe ser null");
+        ValidateName(unSafeName);
+        ValidateAge(unSafeAge);
+        ValidateBirthdate(unSafeBirthdate);
+        ValidateEmail(unSafeEmail);
+        ValidateNumber(unSafeNumber);
+        ValidateRoute(unSafeDriversRoute);
     }
     public static void ValidateName(String unSafeValue){
         Objects.requireNonNull(unSafeValue, "El nombre no debe ser nulo");
@@ -43,10 +46,10 @@ public class DriverValidations {
     //Posibilidades usar el age para generar la fecha, opcion 1
     //Sacar la fecha y calcularla con el age, opcion 2 ademas de ver la fecha actual y calcularla en base a eso
     public static void ValidateBirthdate(String unSafeValue){
-        LocalDateTime unSafeDate;
+        LocalDate unSafeDate;
         try{
 
-        unSafeDate = LocalDateTime.parse(unSafeValue);
+        unSafeDate = parse(unSafeValue);
         }
         catch (Exception e){
             throw new IllegalArgumentException("La fecha ingresada no es valida");

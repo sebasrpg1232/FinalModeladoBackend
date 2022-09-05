@@ -14,9 +14,33 @@ public class driver {
     private final int age;
     private final String email;
     private final int number;
-    private final route driversRoute;
+    private final Route driversRoute;
 
-    public driver(String name, LocalDateTime birthdate, int age, String email, int number, route driversRoute) {
+    public String getName() {
+        return name;
+    }
+
+    public LocalDateTime getBirthdate() {
+        return birthdate;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public Route getDriversRoute() {
+        return driversRoute;
+    }
+
+    public driver(String name, LocalDateTime birthdate, int age, String email, int number, Route driversRoute) {
         this.name = name;
         this.birthdate = birthdate;
         this.age = age;

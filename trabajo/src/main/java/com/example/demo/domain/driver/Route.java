@@ -2,11 +2,11 @@ package com.example.demo.domain.driver;
 
 import java.util.UUID;
 
-public class route {
+public class Route {
     private final int hours;
     private final UUID busSerial;
 
-    public route(int hours, UUID busSerial) {
+    public Route(int hours, UUID busSerial) {
         this.hours = hours;
         this.busSerial = busSerial;
     }

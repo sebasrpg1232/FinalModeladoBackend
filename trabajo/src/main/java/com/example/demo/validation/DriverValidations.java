@@ -1,34 +1,25 @@
 package com.example.demo.validation;
-
-import com.example.demo.domain.driver.Route;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static java.time.LocalDate.parse;
 
 public class DriverValidations {
     public static void ValidateDriver(
             String unSafeName,
-            String unSafeBirthdate,
-            String unSafeAge,
             String unSafeEmail,
             String unSafeNumber,
-            Route unSafeDriversRoute
+            String unSafeId,
+            String unSafeAddress
     ){
         ValidateName(unSafeName);
-        ValidateAge(unSafeAge);
-        ValidateBirthdate(unSafeBirthdate);
         ValidateEmail(unSafeEmail);
         ValidateNumber(unSafeNumber);
-        ValidateRoute(unSafeDriversRoute);
+        ValidateAddress(unSafeAddress);
+        ValidateId(unSafeId);
     }
     public static void ValidateName(String unSafeValue){
         Objects.requireNonNull(unSafeValue, "El nombre no debe ser nulo");
-        Pattern pattern = Pattern.compile("^[a-zA-Z\\\\s:]{10,64}$");
+        //Pattern pattern = Pattern.compile("[A-Z][a-zA-Z]*");
         unSafeValue.trim();
 
         if(unSafeValue.equals("")){
@@ -37,60 +28,45 @@ public class DriverValidations {
         if(unSafeValue.length() > 100){
             throw new IllegalArgumentException("El nombre no puede ser superior a 100 caracteres");
         }
-        boolean valid = pattern.matcher(unSafeValue).matches();
-        if(!valid){
+        //boolean valid = pattern.matcher(unSafeValue).matches();
+        if(!unSafeValue.matches("[a-zA-Z]{1,}")){
             throw new IllegalArgumentException("El nombre no puede tener caracteres especiales");
         }
     }
-    //.before(anotherDate); .after(AntoherDate); para comparar dos fechas
-    //Posibilidades usar el age para generar la fecha, opcion 1
-    //Sacar la fecha y calcularla con el age, opcion 2 ademas de ver la fecha actual y calcularla en base a eso
-    public static void ValidateBirthdate(String unSafeValue){
-        LocalDate unSafeDate;
-        try{
 
-        unSafeDate = parse(unSafeValue);
+    public static void ValidateAddress(String unSafeValue){
+        Objects.requireNonNull(unSafeValue, "La direccion no debe ser nula");
+        //Pattern pattern = Pattern.compile("\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)" );
+        unSafeValue.trim();
+
+        if(unSafeValue.equals("")){
+            throw new IllegalArgumentException("La direccion no puede estar vacia");
         }
-        catch (Exception e){
-            throw new IllegalArgumentException("La fecha ingresada no es valida");
+        if(unSafeValue.length() > 100){
+            throw new IllegalArgumentException("La direccion no puede ser superior a 100 caracteres");
         }
-        Objects.requireNonNull("La fecha de nacimiento no debe ser nula");
-
-    }
-
-    public static void ValidateAge(String unSafeValue){
-        int unSaveAge;
-        try{
-
-            unSaveAge = Integer.parseInt(unSafeValue);
-        }
-        catch (Exception e){
-            throw new IllegalArgumentException("El valor ingresado no es un entero");
-        }
-
-        Objects.requireNonNull(unSafeValue, "La edad no puede ser nula");
-        if(unSaveAge < 0){
-            throw new IllegalArgumentException("La edad no puede ser negativa");
-        }
-
-        if(unSaveAge > 90){
-            throw new IllegalArgumentException("El usuario no debe ser mayor a 90 años");
-        }
-
+        //boolean valid = pattern.matcher(unSafeValue).matches();
+        //if(!unSafeValue.matches("^(Autopista|Avenida|Avenida Calle|Avenida Carrera|Avenida|Carrera|Calle|Carrera|Circunvalar|Diagonal|Kilometro|Transversal|AUTOP|AV|AC|AK|CL|KR|CCV|DG|KM|TV)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|Norte|Occidente|Oeste|Sur)?)?((\\s)?(Agrupación|Altillo|Apartamento|Apartamento Sótano|Barrio|Bloque|Bodega|Cabecera Municipal|Callejón|Camino|Carretera|Casa|Caserio|Célula|Centro|Centro Comercial|Centro Urbano|Circular|Condominio|Conjunto|Consultorio|Corregimiento|Deposito|Deposito |Sótano|Edificio|Entrada|Esquina|Etapa|Finca|Garaje|Garaje Sótano|Grada|Inferior|Inspección de Policia|Interior|Kilometro|Local|Local Mezzanine|Local Sótano|Lote|Manzana|Manzanita|Mejora|Mezzanine|Módulo|Municipio|Núcleo|Oficina|Oficina Sótano|Parcela|Parcelación|Pasaje|Penthouse|Piso|Porteria|Predio|Principal|Puente|Quebrada|Salon|Sector|Semisótano|Suite|Supermanzana|Terraza|Torre|Troncal|Unidad|Urbanización|Vereda|Via|Zona|AGN|AL|APTO|AS|BR|BL|BG|CM|CLJ|CN|CT|CA|CAS|CEL|CE|CECO|CEUR|CIR|CDM|CONJ|CS|CO|DP|DS|ED|EN|ESQ|ET|FCA|GJ|GS|GR|INF|IP|IN|KM|LC|LM|LS|LT|MZ|MZTA|MJ|MN|MD|MUN|NCO|OF|OS|PA|PCN|PSJ|PH|PI|PT|PD|PPAL|PN|QDA|SA|SEC|SS|SU|SMZ|TZ|TO|TRL|UN|URB|VDA|VIA|ZN)?(\\s)?[1-9][0-9]{0,3})*$" )){
+          //  throw new IllegalArgumentException("La direccion no contiene caracteres validos");
+        //}
     }
 
     public static void ValidateNumber(String unSafeValue){
-        int unSaveAge;
+        float unSaveInt = 0;
+        //System.out.println(unSafeValue);
+
         try{
 
-            unSaveAge = Integer.parseInt(unSafeValue);
+            unSaveInt = Float.parseFloat(unSafeValue);
+
         }
         catch (Exception e){
+            //e.printStackTrace();
             throw new IllegalArgumentException("El valor ingresado no es un numero");
         }
 
         Objects.requireNonNull(unSafeValue, "El numero no puede ser nulo");
-        if(unSaveAge < 0){
+        if(unSaveInt < 0){
             throw new IllegalArgumentException("El numero no puede ser negativo");
         }
 
@@ -100,10 +76,31 @@ public class DriverValidations {
 
     }
 
+    public static void ValidateId(String unSafeValue){
+        float unSaveId;
+        try{
+
+            unSaveId = Float.parseFloat(unSafeValue);
+        }
+        catch (Exception e){
+            throw new IllegalArgumentException("El Id ingresado no es un numero");
+        }
+
+        Objects.requireNonNull(unSafeValue, "El Id no puede ser nulo");
+        if(unSaveId < 0){
+            throw new IllegalArgumentException("El Id no puede ser negativo");
+        }
+
+        if(unSafeValue.length() > 15 || unSafeValue.length() < 5){
+            throw new IllegalArgumentException("El Id debe ser valido (estar entre 5 y 15 digitos)");
+        }
+
+    }
+
     public static void ValidateEmail(String unSafeValue) {
         Objects.requireNonNull(unSafeValue, "El correo no debe ser nulo");
         //Pattern pattern = Pattern.compile("^[a-zA-Z\\\\s:]{10,64}$");
-    Pattern pattern = Pattern.compile( "^(.+)@(\\S+)$");
+    Pattern pattern = Pattern.compile( "^(?=.{1,81}$)[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}$");
         unSafeValue.trim();
         if(unSafeValue.equals("")){
             throw new IllegalArgumentException("El correo no puede estar vacio");
@@ -114,10 +111,6 @@ public class DriverValidations {
         }
 
 
-    }
-
-    public static void ValidateRoute(Route unSafeValue){
-       // int hours, UUID busSerial;
     }
 
 
